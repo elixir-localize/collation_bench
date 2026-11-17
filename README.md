@@ -40,9 +40,17 @@ MIX_ENV=prod mix run bench/collation.exs
 
 The benchmark stops before timing anything if Localize's ICU NIF is not loaded, since Localize would otherwise fall back to its Elixir collation and report it as ICU.
 
+### Against Localize's main branch
+
+Set `LOCALIZE_SOURCE=main` to measure Localize's unreleased `main` branch instead of the hex release. Fetch and compile with it set, and run `MIX_ENV=prod mix deps.get` without it afterwards so that `mix.lock` returns to the hex release.
+
+```bash
+export LOCALIZE_SOURCE=main
+```
+
 ## Reading the results
 
-Both NIFs run on dirty CPU schedulers, so each NIF call includes the cost of moving to a dirty scheduler and back, which dominates for short strings. romantic_collation sorts with precomputed sort keys, one NIF call per list; Localize's ICU sort compares through the NIF, one call per comparison, while its Elixir sort builds sort keys.
+Both NIFs run on dirty CPU schedulers, so each NIF call includes the cost of moving to a dirty scheduler and back, which dominates for short strings. romantic_collation and Localize's ICU NIF on `main` sort in one NIF call with precomputed sort keys; Localize 1.7.1 from hex compares through the NIF, one call per comparison. Localize's Elixir collation builds sort keys.
 
 The implementations do not order every pair alike. romantic_collation treats each accented letter as a letter of its own after its base letter, so `ñ` sorts after every word in `n`, where CLDR treats accents as secondary differences that decide only between otherwise equal strings. It also orders punctuation by code point, where CLDR groups it by kind.
 

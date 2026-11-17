@@ -20,11 +20,21 @@ defmodule CollationBench.MixProject do
   defp deps do
     [
       {:benchee, "~> 1.5"},
-      {:localize, "~> 1.7"},
+      localize(),
       # Localize builds its ICU NIF with elixir_make, an optional dependency
       # the host lists.
       {:elixir_make, "~> 0.4", runtime: false},
       {:romantic_collation, github: "pmarreck/romantic_collation", ref: @romantic_collation_ref}
     ]
+  end
+
+  # Localize from hex, or with LOCALIZE_SOURCE=main from its main branch on
+  # GitHub, to measure changes not yet released.
+  defp localize do
+    if System.get_env("LOCALIZE_SOURCE") == "main" do
+      {:localize, github: "elixir-localize/localize", branch: "main"}
+    else
+      {:localize, "~> 1.7"}
+    end
   end
 end
