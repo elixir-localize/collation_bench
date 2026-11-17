@@ -24,8 +24,7 @@ defmodule CollationBench.MixProject do
       # Localize builds its ICU NIF with elixir_make, an optional dependency
       # the host lists.
       {:elixir_make, "~> 0.4", runtime: false},
-      {:romantic_collation,
-       github: "pmarreck/romantic_collation", ref: @romantic_collation_ref}
+      {:romantic_collation, github: "pmarreck/romantic_collation", ref: @romantic_collation_ref}
     ]
   end
 end
