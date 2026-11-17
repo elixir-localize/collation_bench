@@ -63,9 +63,9 @@ elixir_compare = &Localize.Collation.compare(&1, &2, elixir)
 
 IO.puts("""
 Order disagreements over #{length(agreement_pairs)} pairs:
-  ICU vs Localize Elixir:      #{disagreements.(icu_compare, elixir_compare)}
-  ICU struct vs keyword:       #{disagreements.(icu_compare, &Localize.Collation.compare(&1, &2, icu_keywords))}
-  romantic vs ICU:             #{disagreements.(romantic_compare, icu_compare)}
+  Localize ICU Nif vs Localize native Elixir: #{disagreements.(icu_compare, elixir_compare)}
+  Localize ICU Nif, struct vs keyword options: #{disagreements.(icu_compare, &Localize.Collation.compare(&1, &2, icu_keywords))}
+  Romantic Collation vs Localize ICU Nif: #{disagreements.(romantic_compare, icu_compare)}
 """)
 
 benchee_options = [warmup: 2, time: 5, memory_time: 0, print: [fast_warning: false]]
@@ -74,10 +74,10 @@ IO.puts("== #{pair_count} compares")
 
 Benchee.run(
   %{
-    "romantic_collation NIF" => compare_all.(romantic_compare),
-    "ICU (Localize NIF)" => compare_all.(icu_compare),
-    "Localize Elixir" => compare_all.(elixir_compare),
-    "ICU (Localize NIF), keyword options" =>
+    "Romantic Collation" => compare_all.(romantic_compare),
+    "Localize ICU Nif" => compare_all.(icu_compare),
+    "Localize native Elixir" => compare_all.(elixir_compare),
+    "Localize ICU Nif, keyword options" =>
       compare_all.(&Localize.Collation.compare(&1, &2, icu_keywords))
   },
   [inputs: compare_inputs] ++ benchee_options
@@ -87,9 +87,9 @@ IO.puts("== Sorting #{sort_size} strings")
 
 Benchee.run(
   %{
-    "romantic_collation NIF" => &RomanticCollation.sort/1,
-    "ICU (Localize NIF)" => &Localize.Collation.sort(&1, icu),
-    "Localize Elixir" => &Localize.Collation.sort(&1, elixir)
+    "Romantic Collation" => &RomanticCollation.sort/1,
+    "Localize ICU Nif" => &Localize.Collation.sort(&1, icu),
+    "Localize native Elixir" => &Localize.Collation.sort(&1, elixir)
   },
   [inputs: sort_inputs] ++ benchee_options
 )
