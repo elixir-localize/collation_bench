@@ -34,7 +34,7 @@ defmodule CollationBench.MixProject do
     if System.get_env("LOCALIZE_SOURCE") == "main" do
       {:localize, github: "elixir-localize/localize", branch: "main"}
     else
-      {:localize, "~> 1.7"}
+      {:localize, "~> 1.8"}
     end
   end
 end

@@ -50,9 +50,19 @@ export LOCALIZE_SOURCE=main
 
 ## Reading the results
 
-Both NIFs run on dirty CPU schedulers, so each NIF call includes the cost of moving to a dirty scheduler and back, which dominates for short strings. romantic_collation and Localize's ICU NIF on `main` sort in one NIF call with precomputed sort keys; Localize 1.7.1 from hex compares through the NIF, one call per comparison. Localize's Elixir collation builds sort keys.
+Both NIFs run on dirty CPU schedulers, so each NIF call includes the cost of moving to a dirty scheduler and back, which dominates for short strings. romantic_collation and Localize's ICU NIF (from Localize 1.8.0) sort in one NIF call with precomputed sort keys; Localize before 1.8.0 compared through the NIF, one call per comparison. Localize's Elixir collation builds sort keys.
 
-The implementations do not order every pair alike. romantic_collation treats each accented letter as a letter of its own after its base letter, so `ñ` sorts after every word in `n`, where CLDR treats accents as secondary differences that decide only between otherwise equal strings. It also orders punctuation by code point, where CLDR groups it by kind.
+The implementations do not order every pair alike:
+
+* **Spanish and Romanian letters** — romantic_collation makes `ñ` and `ă`, `â`, `î`, `ș`, `ț` (with their cedilla forms) letters of their own after their base letter, so `año` sorts after `anzuelo`. CLDR treats them, as both treat accents such as `é`, `ô` or `ü`, as secondary differences, so `año` sorts first.
+
+* **Latin letters it does not recognise** — such as `ą`, `ę`, `ő`, `ű`, `ť` and `ů` sort after `z` in code-point order in romantic_collation, and beside their base letter in CLDR.
+
+* **Other scripts** — romantic_collation orders Greek, Cyrillic, kana and other non-Latin text by code point, so capitals sort before lower case and `Ё` before `А`, where CLDR folds case and orders each script's alphabet. Arabic, Hebrew, Devanagari, Han and Hangul letters come out in the same order in both in simple cases, since their code-point order is close to CLDR's.
+
+* **Digits in other scripts and symbols** — romantic_collation reads only ASCII digits as numbers and sorts symbols and emoji after letters; CLDR with numeric ordering reads Arabic-Indic digits as numbers and sorts symbols first.
+
+* **Punctuation** — romantic_collation orders it by code point, where CLDR groups it by kind.
 
 ## License
 
