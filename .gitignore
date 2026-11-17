@@ -1,0 +1,4 @@
+/_build/
+/deps/
+/romantic_nif/
+erl_crash.dump

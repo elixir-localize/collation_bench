@@ -1,0 +1,171 @@
+Order disagreements over 4000 pairs:
+  ICU vs Localize Elixir:      0
+  ICU struct vs keyword:       0
+  romantic vs ICU:             11
+
+== 1000 compares
+Operating System: macOS
+CPU Information: Intel(R) Xeon(R) W-2140B CPU @ 3.20GHz
+Number of Available Cores: 16
+Available memory: 32 GB
+Elixir 1.20.4
+Erlang 29.1.2
+JIT enabled: false
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 5 s
+memory time: 0 ns
+reduction time: 0 ns
+parallel: 1
+inputs: 10 code points, 20 code points, 5 code points, 50 code points
+Estimated total run time: 1 min 52 s
+Excluding outliers: false
+
+Benchmarking ICU (Localize NIF) with input 10 code points ...
+Benchmarking ICU (Localize NIF) with input 20 code points ...
+Benchmarking ICU (Localize NIF) with input 5 code points ...
+Benchmarking ICU (Localize NIF) with input 50 code points ...
+Benchmarking ICU (Localize NIF), keyword options with input 10 code points ...
+Benchmarking ICU (Localize NIF), keyword options with input 20 code points ...
+Benchmarking ICU (Localize NIF), keyword options with input 5 code points ...
+Benchmarking ICU (Localize NIF), keyword options with input 50 code points ...
+Benchmarking Localize Elixir with input 10 code points ...
+Benchmarking Localize Elixir with input 20 code points ...
+Benchmarking Localize Elixir with input 5 code points ...
+Benchmarking Localize Elixir with input 50 code points ...
+Benchmarking romantic_collation NIF with input 10 code points ...
+Benchmarking romantic_collation NIF with input 20 code points ...
+Benchmarking romantic_collation NIF with input 5 code points ...
+Benchmarking romantic_collation NIF with input 50 code points ...
+Calculating statistics...
+Formatting results...
+
+##### With input 10 code points #####
+Name                                          ips        average  deviation         median         99th %
+ICU (Localize NIF)                         234.27        4.27 ms     ±8.73%        4.17 ms        5.81 ms
+romantic_collation NIF                     195.43        5.12 ms     ±6.32%        5.07 ms        6.25 ms
+ICU (Localize NIF), keyword options         23.69       42.22 ms     ±1.48%       42.14 ms       44.93 ms
+Localize Elixir                             20.42       48.97 ms     ±1.70%       48.84 ms       51.79 ms
+
+Comparison: 
+ICU (Localize NIF)                         234.27
+romantic_collation NIF                     195.43 - 1.20x slower +0.85 ms
+ICU (Localize NIF), keyword options         23.69 - 9.89x slower +37.95 ms
+Localize Elixir                             20.42 - 11.47x slower +44.71 ms
+
+##### With input 20 code points #####
+Name                                          ips        average  deviation         median         99th %
+ICU (Localize NIF)                         232.73        4.30 ms     ±4.86%        4.26 ms        5.03 ms
+romantic_collation NIF                     136.59        7.32 ms     ±6.36%        7.21 ms        9.60 ms
+ICU (Localize NIF), keyword options         23.22       43.07 ms     ±5.35%       42.23 ms       52.25 ms
+Localize Elixir                             10.81       92.48 ms     ±0.85%       92.53 ms       94.31 ms
+
+Comparison: 
+ICU (Localize NIF)                         232.73
+romantic_collation NIF                     136.59 - 1.70x slower +3.02 ms
+ICU (Localize NIF), keyword options         23.22 - 10.02x slower +38.77 ms
+Localize Elixir                             10.81 - 21.52x slower +88.19 ms
+
+##### With input 5 code points #####
+Name                                          ips        average  deviation         median         99th %
+ICU (Localize NIF)                         252.43        3.96 ms     ±2.55%        3.95 ms        4.26 ms
+romantic_collation NIF                     247.11        4.05 ms     ±5.09%        4.02 ms        4.92 ms
+Localize Elixir                             37.21       26.87 ms     ±1.44%       26.85 ms       27.99 ms
+ICU (Localize NIF), keyword options         23.38       42.77 ms     ±5.26%       42.11 ms       54.99 ms
+
+Comparison: 
+ICU (Localize NIF)                         252.43
+romantic_collation NIF                     247.11 - 1.02x slower +0.0853 ms
+Localize Elixir                             37.21 - 6.78x slower +22.91 ms
+ICU (Localize NIF), keyword options         23.38 - 10.80x slower +38.81 ms
+
+##### With input 50 code points #####
+Name                                          ips        average  deviation         median         99th %
+ICU (Localize NIF)                         204.73        4.88 ms     ±8.19%        4.84 ms        5.99 ms
+romantic_collation NIF                      88.88       11.25 ms     ±4.69%       11.08 ms       13.42 ms
+ICU (Localize NIF), keyword options         22.24       44.96 ms     ±8.01%       43.74 ms       58.43 ms
+Localize Elixir                              4.42      226.22 ms     ±3.29%      223.02 ms      243.29 ms
+
+Comparison: 
+ICU (Localize NIF)                         204.73
+romantic_collation NIF                      88.88 - 2.30x slower +6.37 ms
+ICU (Localize NIF), keyword options         22.24 - 9.20x slower +40.07 ms
+Localize Elixir                              4.42 - 46.31x slower +221.33 ms
+== Sorting 1000 strings
+Operating System: macOS
+CPU Information: Intel(R) Xeon(R) W-2140B CPU @ 3.20GHz
+Number of Available Cores: 16
+Available memory: 32 GB
+Elixir 1.20.4
+Erlang 29.1.2
+JIT enabled: false
+
+Benchmark suite executing with the following configuration:
+warmup: 2 s
+time: 5 s
+memory time: 0 ns
+reduction time: 0 ns
+parallel: 1
+inputs: 10 code points, 20 code points, 5 code points, 50 code points
+Estimated total run time: 1 min 24 s
+Excluding outliers: false
+
+Benchmarking ICU (Localize NIF) with input 10 code points ...
+Benchmarking ICU (Localize NIF) with input 20 code points ...
+Benchmarking ICU (Localize NIF) with input 5 code points ...
+Benchmarking ICU (Localize NIF) with input 50 code points ...
+Benchmarking Localize Elixir with input 10 code points ...
+Benchmarking Localize Elixir with input 20 code points ...
+Benchmarking Localize Elixir with input 5 code points ...
+Benchmarking Localize Elixir with input 50 code points ...
+Benchmarking romantic_collation NIF with input 10 code points ...
+Benchmarking romantic_collation NIF with input 20 code points ...
+Benchmarking romantic_collation NIF with input 5 code points ...
+Benchmarking romantic_collation NIF with input 50 code points ...
+Calculating statistics...
+Formatting results...
+
+##### With input 10 code points #####
+Name                             ips        average  deviation         median         99th %
+romantic_collation NIF        516.55        1.94 ms     ±4.11%        1.93 ms        2.20 ms
+Localize Elixir                38.53       25.95 ms     ±3.51%       25.74 ms       30.63 ms
+ICU (Localize NIF)             30.61       32.67 ms     ±1.04%       32.67 ms       33.59 ms
+
+Comparison: 
+romantic_collation NIF        516.55
+Localize Elixir                38.53 - 13.41x slower +24.02 ms
+ICU (Localize NIF)             30.61 - 16.87x slower +30.73 ms
+
+##### With input 20 code points #####
+Name                             ips        average  deviation         median         99th %
+romantic_collation NIF        324.59        3.08 ms     ±9.20%        3.04 ms        4.45 ms
+ICU (Localize NIF)             30.03       33.30 ms     ±3.57%       32.96 ms       38.24 ms
+Localize Elixir                20.70       48.30 ms     ±1.31%       48.26 ms       50.74 ms
+
+Comparison: 
+romantic_collation NIF        324.59
+ICU (Localize NIF)             30.03 - 10.81x slower +30.21 ms
+Localize Elixir                20.70 - 15.68x slower +45.22 ms
+
+##### With input 5 code points #####
+Name                             ips        average  deviation         median         99th %
+romantic_collation NIF        710.51        1.41 ms     ±7.96%        1.39 ms        1.96 ms
+Localize Elixir                69.37       14.41 ms     ±2.13%       14.40 ms       15.18 ms
+ICU (Localize NIF)             30.04       33.29 ms     ±3.33%       33.04 ms       39.15 ms
+
+Comparison: 
+romantic_collation NIF        710.51
+Localize Elixir                69.37 - 10.24x slower +13.01 ms
+ICU (Localize NIF)             30.04 - 23.65x slower +31.88 ms
+
+##### With input 50 code points #####
+Name                             ips        average  deviation         median         99th %
+romantic_collation NIF        201.05        4.97 ms     ±2.48%        4.97 ms        5.33 ms
+ICU (Localize NIF)             29.69       33.69 ms     ±1.13%       33.68 ms       34.61 ms
+Localize Elixir                 8.52      117.38 ms     ±2.99%      116.50 ms      133.78 ms
+
+Comparison: 
+romantic_collation NIF        201.05
+ICU (Localize NIF)             29.69 - 6.77x slower +28.71 ms
+Localize Elixir                 8.52 - 23.60x slower +112.40 ms
